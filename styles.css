@@ -95,3 +95,9 @@ p, li {
     line-height: 1.6;
     font-size: 1em;
 }
+
+
+#auth button {
+    display: block;
+    margin: 10px auto;
+}
