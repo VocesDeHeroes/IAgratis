@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>Formación Gratuita</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="styles.css" rel="stylesheet"/>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/></head>
+<body><img alt="Logo Formación" src="logo.png" style="max-width: 280px; margin-bottom: 20px;"/>
+<div id="app">
+<h1>Bienvenido a tu formación gratuita</h1>
+<p>Accede al contenido exclusivo tras registrarte.</p>
+<div id="auth">
+<input id="email" placeholder="Correo electrónico" type="email"/><br/>
+<input id="password" placeholder="Contraseña" type="password"/><br/>
+<button onclick="register()">Registrarse</button>
+<button onclick="login()">Iniciar sesión</button><br/><br/>
+<button onclick="googleLogin()">Entrar con Google</button>
+</div>
+<div id="content" style="display:none;">
+<h2>Módulo 1: Introducción</h2>
+<p>Este es el primer módulo de tu formación escrita. Aquí puedes poner todo el contenido que desees, como lecciones, ejemplos, imágenes o enlaces a recursos adicionales.</p>
+<button onclick="logout()">Cerrar sesión</button>
+</div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
