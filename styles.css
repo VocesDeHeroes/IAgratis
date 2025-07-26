@@ -181,12 +181,13 @@ button {
 
 /* Imagen de Leo */
 .avatar-leo {
-  width: 90px;         /* tamaño fijo */
-  height: 90px;
-  border-radius: 50%;  /* redondear */
-  border: 2px solid #e5e5e5;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  flex-shrink: 0;      /* evita que se deforme */
+  width: 90px !important;
+  height: 90px !important;
+  border-radius: 50% !important;
+  border: 2px solid #e5e5e5 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+  object-fit: cover !important;   /* asegura que la cara no se deforme */
+  flex-shrink: 0 !important;
 }
 
 /* Párrafo */
