@@ -171,10 +171,26 @@ button {
   color: #2e7d32;
 }
 
+/* Contenedor de la sección */
+.contenedor-leo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-align: left;
+}
+
+/* Imagen de Leo */
 .avatar-leo {
-  width: 90px;
+  width: 90px;         /* tamaño fijo */
   height: 90px;
-  border-radius: 50%;
+  border-radius: 50%;  /* redondear */
   border: 2px solid #e5e5e5;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  flex-shrink: 0;      /* evita que se deforme */
+}
+
+/* Párrafo */
+.contenedor-leo p {
+  margin: 0;
+  line-height: 1.5;
 }
