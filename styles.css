@@ -170,3 +170,11 @@ button {
   border-radius: 6px;
   color: #2e7d32;
 }
+
+.avatar-leo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 2px solid #e5e5e5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
