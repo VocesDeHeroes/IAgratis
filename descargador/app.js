@@ -57,7 +57,7 @@ document.getElementById("googleBtn").addEventListener("click", async () => {
   }
 });
 
-// 🔹 Lógica descargador (solo X.com)
+// 🔹 Lógica descargador (usa Cloud Function para descarga directa)
 document.getElementById("descargarBtn").addEventListener("click", async () => {
   const url = document.getElementById("url").value.trim();
   if (!url) return alert("Introduce un enlace válido");
@@ -80,7 +80,7 @@ document.getElementById("descargarBtn").addEventListener("click", async () => {
       return alert("No se encontró video en este post o es privado.");
     }
 
-    // Mostrar enlaces de descarga
+    // Mostrar enlaces de descarga (llamando a tu Cloud Function)
     const resultDiv = document.getElementById("resultado");
     resultDiv.innerHTML = "";
     data.media_extended.forEach((video, index) => {
@@ -89,9 +89,12 @@ document.getElementById("descargarBtn").addEventListener("click", async () => {
         ? `${Math.floor(video.bitrate / 1000)} kbps`
         : "Video";
 
-      link.href = video.url;
+      // Usar tu Cloud Function para forzar la descarga directa
+      const proxyUrl = `https://us-central1-iagratuita.cloudfunctions.net/descargador?url=${encodeURIComponent(video.url)}`;
+
+      link.href = proxyUrl;
       link.textContent = `Descargar ${bitrate}`;
-      link.setAttribute("download", `video_${index + 1}.mp4`); // 🔹 Fuerza descarga
+      link.setAttribute("download", `video_${index + 1}.mp4`);
       resultDiv.appendChild(link);
       resultDiv.appendChild(document.createElement("br")); // salto de línea
     });
@@ -107,3 +110,4 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
   loginDiv.style.display = "block";
   descargadorDiv.style.display = "none";
 });
+
