@@ -5,7 +5,7 @@ import {
   GoogleAuthProvider, 
   signInWithPopup 
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 const loginDiv = document.getElementById("login");
 const descargadorDiv = document.getElementById("descargador");
@@ -36,7 +36,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   }
 });
 
-// 🔹 Login con Google usando Popup
+// 🔹 Login con Google usando Popup (con debug)
 document.getElementById("googleBtn").addEventListener("click", async () => {
   alert("DEBUG: Pulsado botón Google");
   const provider = new GoogleAuthProvider();
@@ -44,6 +44,18 @@ document.getElementById("googleBtn").addEventListener("click", async () => {
     const result = await signInWithPopup(auth, provider);
     const email = result.user.email.toLowerCase();
     alert("DEBUG: Entraste con Google → " + email);
+
+    // 🔹 DEBUG: listar toda la whitelist
+    try {
+      const querySnapshot = await getDocs(collection(db, "whitelist"));
+      let lista = [];
+      querySnapshot.forEach((doc) => {
+        lista.push(doc.id);
+      });
+      alert("DEBUG: Emails en whitelist → \n" + lista.join("\n"));
+    } catch (err) {
+      alert("DEBUG ERROR al listar whitelist → " + err.message);
+    }
 
     // Comprobar whitelist
     const ref = doc(db, "whitelist", email);
@@ -54,7 +66,7 @@ document.getElementById("googleBtn").addEventListener("click", async () => {
       loginDiv.style.display = "none";
       descargadorDiv.style.display = "block";
     } else {
-      alert("⚠️ No estás en la whitelist o tu cuenta no tiene activo:true");
+      alert("⚠️ Usuario NO está en whitelist ❌");
       await signOut(auth);
     }
   } catch (error) {
@@ -92,4 +104,3 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
   loginDiv.style.display = "block";
   descargadorDiv.style.display = "none";
 });
-
