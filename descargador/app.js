@@ -3,12 +3,31 @@ import {
   signInWithEmailAndPassword, 
   signOut, 
   GoogleAuthProvider, 
-  signInWithPopup 
+  signInWithRedirect, 
+  getRedirectResult 
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 const loginDiv = document.getElementById("login");
 const descargadorDiv = document.getElementById("descargador");
+
+// 🔹 Comprobación si venimos del redirect de Google
+getRedirectResult(auth).then(async (result) => {
+  if (result) {
+    const email = result.user.email;
+    // Comprobar whitelist
+    const ref = doc(db, "whitelist", email);
+    const snap = await getDoc(ref);
+
+    if (snap.exists() && snap.data().activo) {
+      loginDiv.style.display = "none";
+      descargadorDiv.style.display = "block";
+    } else {
+      alert("⚠️ Tu cuenta no tiene acceso al descargador");
+      await signOut(auth);
+    }
+  }
+}).catch(() => {});
 
 // 🔹 Login con Email y Contraseña
 document.getElementById("loginBtn").addEventListener("click", async () => {
@@ -34,27 +53,10 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   }
 });
 
-// 🔹 Login con Google
+// 🔹 Login con Google usando Redirect
 document.getElementById("googleBtn").addEventListener("click", async () => {
   const provider = new GoogleAuthProvider();
-  try {
-    const result = await signInWithPopup(auth, provider);
-    const email = result.user.email;
-
-    // Comprobar whitelist
-    const ref = doc(db, "whitelist", email);
-    const snap = await getDoc(ref);
-
-    if (snap.exists() && snap.data().activo) {
-      loginDiv.style.display = "none";
-      descargadorDiv.style.display = "block";
-    } else {
-      alert("⚠️ Tu cuenta no tiene acceso al descargador");
-      await signOut(auth);
-    }
-  } catch (error) {
-    alert("Error al iniciar sesión con Google");
-  }
+  await signInWithRedirect(auth, provider);
 });
 
 // 🔹 Lógica descargador
@@ -87,3 +89,4 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
   loginDiv.style.display = "block";
   descargadorDiv.style.display = "none";
 });
+
