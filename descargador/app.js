@@ -57,16 +57,30 @@ document.getElementById("googleBtn").addEventListener("click", async () => {
   }
 });
 
-// 🔹 Lógica descargador
+// 🔹 Lógica descargador (solo X.com)
 document.getElementById("descargarBtn").addEventListener("click", async () => {
-  const url = document.getElementById("url").value;
+  const url = document.getElementById("url").value.trim();
   if (!url) return alert("Introduce un enlace válido");
 
-  const apiUrl = `https://api.vxtwitter.com/${url.split("twitter.com/")[1]}`;
   try {
+    // Solo aceptar enlaces de X.com
+    if (!url.includes("x.com/")) {
+      return alert("URL inválida. Debe ser un enlace de X.com");
+    }
+
+    // Limpiar parámetros y construir URL para vxtwitter
+    const tweetPath = url.split("x.com/")[1].split("?")[0];
+    const apiUrl = `https://api.vxtwitter.com/${tweetPath}?noRedirect=1`;
+
     const res = await fetch(apiUrl);
     const data = await res.json();
 
+    // Comprobar si hay videos
+    if (!data.media_extended || data.media_extended.length === 0) {
+      return alert("No se encontró video en este post o es privado.");
+    }
+
+    // Mostrar enlaces de descarga
     const resultDiv = document.getElementById("resultado");
     resultDiv.innerHTML = "";
     data.media_extended.forEach(video => {
@@ -77,7 +91,8 @@ document.getElementById("descargarBtn").addEventListener("click", async () => {
       resultDiv.appendChild(link);
     });
   } catch (e) {
-    alert("Error al descargar el video.");
+    console.error("❌ Error al descargar:", e);
+    alert("Error al descargar el video (puede ser por bloqueo de CORS).");
   }
 });
 
