@@ -83,12 +83,17 @@ document.getElementById("descargarBtn").addEventListener("click", async () => {
     // Mostrar enlaces de descarga
     const resultDiv = document.getElementById("resultado");
     resultDiv.innerHTML = "";
-    data.media_extended.forEach(video => {
+    data.media_extended.forEach((video, index) => {
       const link = document.createElement("a");
+      const bitrate = video.bitrate 
+        ? `${Math.floor(video.bitrate / 1000)} kbps`
+        : "Video";
+
       link.href = video.url;
-      link.textContent = `Descargar (${Math.floor(video.bitrate / 1000)} kbps)`;
-      link.target = "_blank";
+      link.textContent = `Descargar ${bitrate}`;
+      link.setAttribute("download", `video_${index + 1}.mp4`); // 🔹 Fuerza descarga
       resultDiv.appendChild(link);
+      resultDiv.appendChild(document.createElement("br")); // salto de línea
     });
   } catch (e) {
     console.error("❌ Error al descargar:", e);
