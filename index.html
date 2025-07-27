@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VCH Academy - Newsletter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-black font-sans">
+  <div class="max-w-2xl mx-auto px-6 py-10">
+    <img src="logo.png" alt="VCH Academy" class="mx-auto mb-6 w-48" />
+    <h1 class="text-2xl font-bold text-center mb-6 leading-snug">
+      Con estas 3 disciplinas (Desarrollo Web, Programación e Inteligencia Artificial)<br>
+      he conseguido crear proyectos rentables y dominar habilidades que el mercado más valora.<br>
+      <span class="text-red-600">(Material secreto)</span>
+    </h1>
+    <p class="text-center mb-4">Es secreto porque la mayoría sigue consumiendo tutoriales sueltos que no llevan a nada.</p>
+    <p class="text-center mb-4">Es secreto porque pocos saben cómo combinar estas habilidades para crear oportunidades reales.</p>
+    <p class="text-center mb-8">Y es secreto porque solo los miembros de este boletín conocen el sistema completo.</p>
+
+    <div class="bg-gray-50 p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-lg font-semibold mb-4">Regístrate ahora y recibe:</h2>
+      <ul class="list-disc list-inside mb-4">
+        <li>3 principios que usamos los desarrolladores y creadores para ganar ventaja real en el mercado.</li>
+        <li>Hacks diarios de programación, IA y desarrollo web en tu bandeja de entrada.</li>
+        <li>Acceso a recursos y herramientas exclusivas.</li>
+        <li>Un regalo sorpresa para que comiences a aplicar lo aprendido desde hoy.</li>
+      </ul>
+      <p class="text-sm text-gray-500">(Tu email será guardado en nuestra base de datos y está protegido por la Ley de Privacidad de Datos)</p>
+    </div>
+
+    <blockquote class="italic text-center text-lg mb-6">
+      “¿Será posible vivir de la programación y la IA?”
+    </blockquote>
+    <p class="text-center mb-6">Eso mismo pensaba yo. Hasta que descubrí un método probado.</p>
+    <p class="text-center mb-10">El mismo que ya ha hecho crecer proyectos de 0 a 100.000 € en ingresos y generado oportunidades reales sin depender de empresas, bots ni anuncios.</p>
+
+    <form id="newsletter-form" class="text-center">
+      <input type="email" id="email" placeholder="Tu email" required class="w-full md:w-2/3 p-3 rounded-md border border-gray-300 mb-4">
+      <button type="submit" class="w-full md:w-2/3 bg-red-600 text-white p-3 rounded-md font-semibold hover:bg-red-700 transition">Regístrate ahora</button>
+    </form>
+
+    <p class="text-center text-sm text-gray-500 mt-6">(Deja tu email solo si estás preparado para convertirte en uno de los que dominan estas 3 disciplinas clave)</p>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const form = document.getElementById("newsletter-form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+
+      try {
+        await addDoc(collection(db, "suscriptores"), { email, fecha: new Date() });
+        window.location.href = "/gracias.html";
+      } catch (error) {
+        alert("Hubo un problema al registrarte. Intenta de nuevo.");
+        console.error(error);
+      }
+    });
+  </script>
+</body>
+</html>
