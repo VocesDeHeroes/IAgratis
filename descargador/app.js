@@ -90,7 +90,7 @@ document.getElementById("descargarBtn").addEventListener("click", async () => {
         : "Video";
 
       // Usar tu Cloud Function para forzar la descarga directa
-      const proxyUrl = `https://us-central1-iagratuita.cloudfunctions.net/descargador?url=${encodeURIComponent(video.url)}`;
+      const proxyUrl = `https://descargador-kqr6unejzq-uc.a.run.app?url=${encodeURIComponent(video.url)}`;
 
       link.href = proxyUrl;
       link.textContent = `Descargar ${bitrate}`;
