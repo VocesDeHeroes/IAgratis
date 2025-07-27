@@ -1,1 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Descargador X | vchacademy</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container" id="login">
+    <h1>vchacademy</h1>
+    <h2>🔐 Acceso exclusivo</h2>
+    <input type="email" id="email" placeholder="Correo registrado en vchacademy.es"><br>
+    <input type="password" id="password" placeholder="Contraseña"><br>
+    <button id="loginBtn">Entrar</button>
+  </div>
+
+  <div class="container" id="descargador" style="display:none;">
+    <h1>vchacademy</h1>
+    <h2>Descargar videos de X</h2>
+    <input type="text" id="url" placeholder="Pega el enlace del tweet"><br>
+    <button id="descargarBtn">Descargar</button>
+    <div id="resultado"></div>
+    <br>
+    <button id="logoutBtn">Cerrar sesión</button>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
 
