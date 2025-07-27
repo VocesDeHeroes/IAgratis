@@ -6,31 +6,39 @@ import {
   signInWithRedirect, 
   getRedirectResult 
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 const loginDiv = document.getElementById("login");
 const descargadorDiv = document.getElementById("descargador");
 
+alert("DEBUG: app.js cargado correctamente");
+
 // 🔹 Comprobación si venimos del redirect de Google
 getRedirectResult(auth).then(async (result) => {
+  alert("DEBUG: Entrando en getRedirectResult");
+  
   if (result) {
-    const email = result.user.email.toLowerCase(); // 🔹 normalizamos a minúsculas
-    alert("Estás entrando con: " + email);
+    alert("DEBUG: getRedirectResult tiene result");
+    const email = result.user.email.toLowerCase();
+    alert("DEBUG: Email detectado → " + email);
 
     // Comprobar whitelist
     const ref = doc(db, "whitelist", email);
     const snap = await getDoc(ref);
 
     if (snap.exists() && snap.data().activo) {
+      alert("DEBUG: Usuario está en whitelist ✅");
       loginDiv.style.display = "none";
       descargadorDiv.style.display = "block";
     } else {
-      alert("⚠️ No estás en la whitelist o tu cuenta no tiene activo:true");
+      alert("DEBUG: Usuario NO está en whitelist ❌");
       await signOut(auth);
     }
+  } else {
+    alert("DEBUG: result es NULL (no venimos de redirect)");
   }
 }).catch((err) => {
-  alert("Error en redirect: " + err.message);
+  alert("DEBUG ERROR en redirect: " + err.message);
 });
 
 // 🔹 Login con Email y Contraseña
@@ -59,6 +67,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
 
 // 🔹 Login con Google usando Redirect
 document.getElementById("googleBtn").addEventListener("click", async () => {
+  alert("DEBUG: Pulsado botón Google");
   const provider = new GoogleAuthProvider();
   await signInWithRedirect(auth, provider);
 });
