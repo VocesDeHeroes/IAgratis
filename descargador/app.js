@@ -14,7 +14,9 @@ const descargadorDiv = document.getElementById("descargador");
 // 🔹 Comprobación si venimos del redirect de Google
 getRedirectResult(auth).then(async (result) => {
   if (result) {
-    const email = result.user.email;
+    const email = result.user.email.toLowerCase(); // 🔹 normalizamos a minúsculas
+    alert("Estás entrando con: " + email);
+
     // Comprobar whitelist
     const ref = doc(db, "whitelist", email);
     const snap = await getDoc(ref);
@@ -23,15 +25,17 @@ getRedirectResult(auth).then(async (result) => {
       loginDiv.style.display = "none";
       descargadorDiv.style.display = "block";
     } else {
-      alert("⚠️ Tu cuenta no tiene acceso al descargador");
+      alert("⚠️ No estás en la whitelist o tu cuenta no tiene activo:true");
       await signOut(auth);
     }
   }
-}).catch(() => {});
+}).catch((err) => {
+  alert("Error en redirect: " + err.message);
+});
 
 // 🔹 Login con Email y Contraseña
 document.getElementById("loginBtn").addEventListener("click", async () => {
-  const email = document.getElementById("email").value.trim();
+  const email = document.getElementById("email").value.trim().toLowerCase();
   const password = document.getElementById("password").value.trim();
 
   try {
@@ -45,7 +49,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
       loginDiv.style.display = "none";
       descargadorDiv.style.display = "block";
     } else {
-      alert("⚠️ Tu cuenta no tiene acceso al descargador");
+      alert("⚠️ No estás en la whitelist o tu cuenta no tiene activo:true");
       await signOut(auth);
     }
   } catch (e) {
@@ -89,4 +93,3 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
   loginDiv.style.display = "block";
   descargadorDiv.style.display = "none";
 });
-
