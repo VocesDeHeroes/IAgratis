@@ -5,12 +5,10 @@ import {
   GoogleAuthProvider, 
   signInWithPopup 
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
-import { doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 const loginDiv = document.getElementById("login");
 const descargadorDiv = document.getElementById("descargador");
-
-alert("DEBUG: app.js cargado correctamente");
 
 // 🔹 Login con Email y Contraseña
 document.getElementById("loginBtn").addEventListener("click", async () => {
@@ -28,7 +26,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
       loginDiv.style.display = "none";
       descargadorDiv.style.display = "block";
     } else {
-      alert("⚠️ No estás en la whitelist o tu cuenta no tiene activo:true");
+      alert("⚠️ Tu cuenta no tiene acceso al descargador.");
       await signOut(auth);
     }
   } catch (e) {
@@ -36,41 +34,26 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   }
 });
 
-// 🔹 Login con Google usando Popup (con debug)
+// 🔹 Login con Google usando Popup
 document.getElementById("googleBtn").addEventListener("click", async () => {
-  alert("DEBUG: Pulsado botón Google");
   const provider = new GoogleAuthProvider();
   try {
     const result = await signInWithPopup(auth, provider);
     const email = result.user.email.toLowerCase();
-    alert("DEBUG: Entraste con Google → " + email);
-
-    // 🔹 DEBUG: listar toda la whitelist
-    try {
-      const querySnapshot = await getDocs(collection(db, "whitelist"));
-      let lista = [];
-      querySnapshot.forEach((doc) => {
-        lista.push(doc.id);
-      });
-      alert("DEBUG: Emails en whitelist → \n" + lista.join("\n"));
-    } catch (err) {
-      alert("DEBUG ERROR al listar whitelist → " + err.message);
-    }
 
     // Comprobar whitelist
     const ref = doc(db, "whitelist", email);
     const snap = await getDoc(ref);
 
     if (snap.exists() && snap.data().activo) {
-      alert("DEBUG: Usuario está en whitelist ✅");
       loginDiv.style.display = "none";
       descargadorDiv.style.display = "block";
     } else {
-      alert("⚠️ Usuario NO está en whitelist ❌");
+      alert("⚠️ Tu cuenta no tiene acceso al descargador.");
       await signOut(auth);
     }
   } catch (error) {
-    alert("DEBUG ERROR Google Popup: " + error.message);
+    alert("Error al iniciar sesión con Google: " + error.message);
   }
 });
 
@@ -94,7 +77,7 @@ document.getElementById("descargarBtn").addEventListener("click", async () => {
       resultDiv.appendChild(link);
     });
   } catch (e) {
-    alert("Error al descargar el video");
+    alert("Error al descargar el video.");
   }
 });
 
