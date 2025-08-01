@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario de contacto – Diseño Web 68€</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white font-sans">
+
+  <div class="min-h-screen flex items-center justify-center px-6 py-16">
+    <div class="bg-gray-900 p-8 rounded-lg max-w-lg w-full shadow-lg">
+      <h1 class="text-2xl font-bold text-red-500 mb-4">🚀 Solicita tu web por solo 68 €</h1>
+      <p class="text-gray-300 mb-6">
+        Rellena el formulario y me pondré en contacto contigo lo antes posible para hablar de tu web.
+      </p>
+      
+      <form action="https://formsubmit.co/info@vchacademy.es" method="POST" class="space-y-4">
+        
+        <!-- Nombre -->
+        <input type="text" name="nombre" placeholder="Nombre" required 
+          class="w-full p-3 rounded bg-black text-white border border-gray-600" />
+        
+        <!-- Email -->
+        <input type="email" name="email" placeholder="E-mail" required 
+          class="w-full p-3 rounded bg-black text-white border border-gray-600" />
+        
+        <!-- Teléfono -->
+        <input type="tel" name="telefono" placeholder="Teléfono" 
+          class="w-full p-3 rounded bg-black text-white border border-gray-600" />
+        
+        <!-- Cómo quieres que te contacte -->
+        <select name="contacto" required 
+          class="w-full p-3 rounded bg-black text-white border border-gray-600">
+          <option value="">¿Cómo quieres que te contacte?</option>
+          <option value="Email">Email</option>
+          <option value="Teléfono">Teléfono</option>
+          <option value="WhatsApp">WhatsApp</option>
+        </select>
+        
+        <!-- Tipo de web -->
+        <textarea name="tipo_web" rows="4" placeholder="¿Qué tipo de web necesitas?" required 
+          class="w-full p-3 rounded bg-black text-white border border-gray-600"></textarea>
+        
+        <!-- Redirigir tras enviar -->
+        <input type="hidden" name="_next" value="https://vchacademy.es/graciasweb.html">
+        <input type="hidden" name="_captcha" value="false">
+
+        <button type="submit" 
+          class="w-full bg-red-600 hover:bg-red-700 py-3 font-semibold rounded transition transform hover:scale-105">
+          Enviar solicitud
+        </button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
