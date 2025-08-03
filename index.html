@@ -59,20 +59,43 @@
           <p class="text-sm text-gray-300">Formación gratuita</p>
         </div>
       </div>
+
       <!-- Oferta diseño web -->
-<div class="bg-gray-900 rounded-lg p-6 mt-10 text-center shadow-lg">
-  <h2 class="text-2xl font-bold mb-4 text-red-500">
-    🔥 Oferta exclusiva: tu web profesional por solo 68 €
-  </h2>
-  <p class="text-gray-300 mb-6">
-    Si quieres acelerar tu proyecto, podemos diseñar tu web completa 
-    por un precio único. Obtendrás un sitio optimizado, rápido y listo para monetizar.
-  </p>
-  <a href="/formularioweb.html" 
-     class="bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-4 rounded-md transition transform hover:scale-105">
-    👉 Sí, quiero mi web por 68 €
-  </a>
-</div>
+      <div class="bg-gray-900 rounded-lg p-6 mt-10 text-center shadow-lg">
+        <h2 class="text-2xl font-bold mb-4 text-red-500">
+          🔥 Oferta exclusiva: tu web profesional por solo 68 €
+        </h2>
+        <p class="text-gray-300 mb-6">
+          Si quieres acelerar tu proyecto, podemos diseñar tu web completa 
+          por un precio único. Obtendrás un sitio optimizado, rápido y listo para monetizar.
+        </p>
+        <a href="/formularioweb.html" 
+          class="bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-4 rounded-md transition transform hover:scale-105">
+          👉 Sí, quiero mi web por 68 €
+        </a>
+      </div>
+
+      <!-- NUEVO: Formación de Diseño Web -->
+      <div class="bg-gray-900 rounded-lg p-6 mt-10 text-center shadow-lg">
+        <h2 class="text-2xl font-bold mb-4 text-red-500">
+          📚 Formación: Diseño Web desde Cero
+        </h2>
+        
+        <p class="text-gray-300 mb-4">
+          Aprende a crear webs profesionales en 12 módulos paso a paso.  
+          <span id="precio" class="text-red-500 font-bold text-xl">19,99 €</span>
+        </p>
+
+        <!-- Contador -->
+        <p class="text-gray-400 mb-4">
+          Oferta termina en: <span id="contador" class="font-bold text-red-500"></span>
+        </p>
+
+        <a href="/formacion-diseno-web.html"
+          class="bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-4 rounded-md transition transform hover:scale-105">
+          👉 Ver contenido de la formación
+        </a>
+      </div>
     </div>
   </div>
 
@@ -98,6 +121,37 @@
       <p class="text-gray-500 text-sm">&copy; 2025 VCH Academy. Todos los derechos reservados.</p>
     </div>
   </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Contador y cambio de precio
+    const fechaFin = new Date();
+    fechaFin.setDate(fechaFin.getDate() + 3);
+
+    const precio = document.getElementById("precio");
+    const contador = document.getElementById("contador");
+
+    const actualizarContador = () => {
+      const ahora = new Date();
+      const diferencia = fechaFin - ahora;
+
+      if (diferencia <= 0) {
+        precio.textContent = "39,99 €";
+        contador.textContent = "Oferta terminada";
+        return;
+      }
+
+      const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+      contador.textContent = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+    };
+
+    actualizarContador();
+    setInterval(actualizarContador, 1000);
+  </script>
 
   <!-- Script Firebase -->
   <script type="module">
