@@ -88,7 +88,9 @@
 
         <!-- Contador -->
         <p class="text-gray-400 mb-4">
-          Oferta termina en: <span id="contador" class="font-bold text-red-500"></span>
+          Oferta termina el <strong>31 de agosto</strong>  
+          <br>Después costará <span class="text-red-500 font-bold">59,99 €</span>
+          <br><span id="contador" class="font-bold text-red-500"></span>
         </p>
 
         <a href="/formacion-diseno-web.html"
@@ -124,9 +126,8 @@
 
   <!-- Scripts -->
   <script>
-    // Contador y cambio de precio
-    const fechaFin = new Date();
-    fechaFin.setDate(fechaFin.getDate() + 3);
+    // Contador y cambio de precio (31 de agosto a las 23:59:59)
+    const fechaFin = new Date("2025-08-31T23:59:59");
 
     const precio = document.getElementById("precio");
     const contador = document.getElementById("contador");
@@ -136,8 +137,8 @@
       const diferencia = fechaFin - ahora;
 
       if (diferencia <= 0) {
-        precio.textContent = "39,99 €";
-        contador.textContent = "Oferta terminada";
+        precio.textContent = "59,99 €";
+        contador.textContent = "¡La oferta ha finalizado!";
         return;
       }
 
@@ -146,7 +147,7 @@
       const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
       const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
 
-      contador.textContent = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+      contador.textContent = `${dias}d ${horas}h ${minutos}m ${segundos}s restantes`;
     };
 
     actualizarContador();
