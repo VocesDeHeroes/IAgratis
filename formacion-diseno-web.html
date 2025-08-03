@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formación Diseño Web - VCH Academy</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white font-sans">
+  <div class="max-w-4xl mx-auto px-6 py-12">
+    <h1 class="text-3xl font-bold text-red-500 mb-6 text-center">
+      📖 Formación de Diseño Web – Contenido Completo
+    </h1>
+
+    <p class="text-gray-300 mb-6 text-center">
+      La formación está compuesta por 12 módulos diseñados para llevarte de cero a experto en diseño web.
+    </p>
+
+    <!-- Contador y precio -->
+    <div class="bg-gray-900 rounded-lg p-6 text-center shadow-lg mb-8">
+      <p class="text-gray-300 mb-4">
+        Precio actual: <span id="precio" class="text-red-500 font-bold text-xl">19,99 €</span>
+      </p>
+      <p class="text-gray-400 mb-4">
+        Oferta termina el <strong>31 de agosto</strong>  
+        <br>Después costará <span class="text-red-500 font-bold">59,99 €</span>
+        <br><span id="contador" class="font-bold text-red-500"></span>
+      </p>
+      <a href="/pago-formacion.html"
+         class="bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-4 rounded-md transition transform hover:scale-105">
+        👉 Quiero acceder a la formación
+      </a>
+    </div>
+
+    <!-- Índice de módulos -->
+    <ol class="list-decimal list-inside text-gray-300 space-y-3 mb-8">
+      <li><strong>Fundamentos del Diseño Web</strong><br>
+        ¿Qué es el diseño web y por qué es importante?<br>
+        Terminología básica: hosting, dominio, front-end y back-end<br>
+        Estructura y anatomía de un sitio web
+      </li>
+      <li><strong>Principios de Diseño y Usabilidad (UX/UI)</strong><br>
+        Psicología del usuario: cómo navega y qué espera encontrar<br>
+        Principios de diseño visual (color, tipografía, espaciado y jerarquía)<br>
+        Accesibilidad y diseño inclusivo
+      </li>
+      <li><strong>Herramientas y Entorno de Trabajo</strong><br>
+        Editores de código (VS Code, Sublime, etc.)<br>
+        Diseño con Figma o Adobe XD<br>
+        Control de versiones con Git y GitHub
+      </li>
+      <li><strong>HTML5: La base de toda web</strong><br>
+        Estructura básica y etiquetas principales<br>
+        Semántica web<br>
+        Buenas prácticas de maquetación
+      </li>
+      <li><strong>CSS3: Dar estilo y personalidad a la web</strong><br>
+        Selectores, propiedades y unidades<br>
+        Flexbox y Grid<br>
+        Animaciones y transiciones
+      </li>
+      <li><strong>Diseño Responsivo y Mobile First</strong><br>
+        Adaptar el diseño a diferentes pantallas<br>
+        Media Queries y técnicas avanzadas<br>
+        Herramientas de testeo
+      </li>
+      <li><strong>Fundamentos de JavaScript para el Front-end</strong><br>
+        Variables, funciones y eventos<br>
+        Manipulación del DOM<br>
+        Integración de librerías (ej. sliders, menús interactivos)
+      </li>
+      <li><strong>Construcción de Páginas Profesionales</strong><br>
+        Plantillas desde cero<br>
+        Reutilización de componentes<br>
+        Integración de formularios y elementos interactivos
+      </li>
+      <li><strong>SEO Técnico y Rendimiento Web</strong><br>
+        Optimización de velocidad<br>
+        Etiquetas meta y estructura para buscadores<br>
+        Buenas prácticas de indexación
+      </li>
+      <li><strong>WordPress y Constructores Visuales</strong><br>
+        Instalación y configuración<br>
+        Personalización de plantillas<br>
+        Cuándo usar constructores visuales y cuándo no
+      </li>
+      <li><strong>Publicación y Mantenimiento</strong><br>
+        Cómo subir tu web al hosting<br>
+        Copias de seguridad y seguridad básica<br>
+        Actualizaciones y mejoras continuas
+      </li>
+      <li><strong>Proyecto Final: Tu Primera Web Profesional</strong><br>
+        Elección del proyecto (cliente real o ficticio)<br>
+        Diseño completo (boceto -> desarrollo -> publicación)<br>
+        Presentación profesional de resultados
+      </li>
+    </ol>
+
+    <div class="text-center">
+      <a href="/" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-4 rounded-md transition transform hover:scale-105">
+        ⬅ Volver al inicio
+      </a>
+    </div>
+  </div>
+
+  <!-- Script para el contador -->
+  <script>
+    // Fecha de finalización: 31 de agosto a las 23:59
+    const fechaFin = new Date("2025-08-31T23:59:59");
+
+    const precio = document.getElementById("precio");
+    const contador = document.getElementById("contador");
+
+    const actualizarContador = () => {
+      const ahora = new Date();
+      const diferencia = fechaFin - ahora;
+
+      if (diferencia <= 0) {
+        precio.textContent = "59,99 €";
+        contador.textContent = "¡La oferta ha finalizado!";
+        return;
+      }
+
+      const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+      contador.textContent = `${dias}d ${horas}h ${minutos}m ${segundos}s restantes`;
+    };
+
+    actualizarContador();
+    setInterval(actualizarContador, 1000);
+  </script>
+</body>
+</html>
