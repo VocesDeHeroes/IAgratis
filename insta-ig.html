@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sigue a @miniliaaz en Instagram</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://vchacademy.es/insta-ig.html" />
+
+  <!-- Twitter primero (algunas implementaciones lo prefieren arriba) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@ennedoble" />
+  <meta name="twitter:title" content="Sigue mi Instagram" />
+  <meta name="twitter:description" content="Bienestar, fitness y mentalidad. @miniliaaz" />
+  <meta name="twitter:image" content="https://vchacademy.es/instagram2.jpg?v=3" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="vchacademy.es" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Sigue mi Instagram" />
+  <meta property="og:description" content="Bienestar, fitness y mentalidad. @miniliaaz" />
+  <meta property="og:url" content="https://vchacademy.es/insta-ig.html" />
+  <meta property="og:image" content="https://vchacademy.es/instagram2.jpg?v=3" />
+  <meta property="og:image:secure_url" content="https://vchacademy.es/instagram2.jpg?v=3" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="628" />
+  <meta property="og:image:alt" content="Sigue a @miniliaaz en Instagram" />
+
+  <!-- Redirección inteligente -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var user = "miniliaaz";
+      var app = "instagram://user?username=" + user;
+      var web = "https://www.instagram.com/" + user + "/";
+      setTimeout(function () {
+        var t = Date.now();
+        window.location.href = app;
+        setTimeout(function () {
+          if (Date.now() - t < 1200) window.location.href = web;
+        }, 900);
+      }, 800);
+    });
+  </script>
+
+  <style>
+    body{margin:0;background:#000;color:#fff;font-family:system-ui, sans-serif;
+         display:grid;place-items:center;min-height:100dvh;text-align:center}
+    a.btn{display:inline-block;margin-top:16px;padding:12px 18px;background:#fff;color:#000;
+          border-radius:999px;text-decoration:none;font-weight:700}
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Abriendo Instagram…</h1>
+    <p>Si no se abre, pulsa aquí:</p>
+    <a class="btn" href="https://www.instagram.com/miniliaaz/">Ir a @miniliaaz</a>
+  </div>
+</body>
+</html>
