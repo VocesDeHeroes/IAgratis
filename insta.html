@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirigiendo a Instagram...</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var username = "miniliaaz";
+      var appLink = "instagram://user?username=" + username;
+      var webLink = "https://www.instagram.com/" + username + "/";
+
+      // Intentar abrir la app
+      var now = Date.now();
+      window.location = appLink;
+
+      // Si en 1 segundo no se abre la app, ir a la web
+      setTimeout(function () {
+        if (Date.now() - now < 1500) {
+          window.location = webLink;
+        }
+      }, 1000);
+    });
+  </script>
+</head>
+<body>
+  <p>Redirigiendo a Instagram... <br>
+     Si no eres redirigido, <a href="https://www.instagram.com/miniliaaz/">haz clic aquí</a>.
+  </p>
+</body>
+</html>
